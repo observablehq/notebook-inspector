@@ -1,38 +1,8 @@
 <html>
 <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
 <script src='https://cdn.jsdelivr.net/npm/immutable@4.0.0-rc.12/dist/immutable.min.js'></script>
+<link rel="stylesheet" href="src/style.css"/>
 <style>
-:root {
-  --syntax_normal: #1b1e23;
-  --syntax_comment: #a9b0bc;
-  --syntax_number: #20a5ba;
-  --syntax_keyword: #c30771;
-  --syntax_atom: #10a778;
-  --syntax_string: #008ec4;
-  --syntax_error: #ffbedc;
-  --syntax_unknown_variable: #838383;
-  --syntax_known_variable: #005f87;
-  --syntax_matchbracket: #20bbfc;
-  --syntax_key: #6636b4;
-  --selection: #d7d4f0;
-  --mono_fonts: 14px/1.5 Menlo, Consolas, monospace;
-}
-
-.observablehq--expanded,
-.observablehq--collapsed,
-.observablehq--function,
-.observablehq--import,
-.observablehq--string:before,
-.observablehq--string:after,
-.observablehq--gray {
-  color: var(--syntax_normal);
-}
-
-.observablehq--collapsed,
-.observablehq--inspect a {
-  cursor: pointer;
-}
-
 .observablehq--caret {
   margin-right: 4px;
   vertical-align: middle;
@@ -53,69 +23,6 @@
   color: #222;
 }
 
-.observablehq--field {
-  text-indent: -1em;
-  margin-left: 1em;
-}
-
-.observablehq--empty {
-  color: var(--syntax_comment);
-}
-
-a[href],
-.observablehq--keyword,
-.observablehq--blue {
-  color: #3182bd;
-}
-
-.observablehq--forbidden,
-.observablehq--pink {
-  color: #e377c2;
-}
-
-.observablehq--orange {
-  color: #e6550d;
-}
-
-.observablehq--null,
-.observablehq--undefined,
-.observablehq--boolean {
-  color: var(--syntax_atom);
-}
-
-.observablehq--bigint,
-.observablehq--number,
-.observablehq--date,
-.observablehq--regexp,
-.observablehq--symbol,
-.observablehq--green {
-  color: var(--syntax_number);
-}
-
-.observablehq--index,
-.observablehq--key {
-  color: var(--syntax_key);
-}
-
-.observablehq--prototype-key {
-  color: #aaa;
-}
-
-.observablehq--empty {
-  font-style: oblique;
-}
-
-.observablehq--string,
-.observablehq--purple {
-  color: var(--syntax_string);
-}
-
-/* Note: Tachyons' dark-red */
-.observablehq--error,
-.observablehq--red {
-  color: #e7040f;
-}
-
 .observablehq {
   position: relative;
   margin: 17px -10px;
@@ -126,20 +33,11 @@ a[href],
 }
 
 .observablehq--inspect {
-  font: var(--mono_fonts);
-  overflow-x: auto;
-  display: block;
   padding: 6px 0;
-  white-space: pre;
 }
 
 .observablehq--error {
   border-left-color: #e7040f;
-}
-
-.observablehq--error .observablehq--inspect {
-  word-break: break-all;
-  white-space: pre-wrap;
 }
 
 .observablehq--running,

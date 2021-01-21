@@ -7,7 +7,7 @@ const NEWLINE_LIMIT = 20;
 export default function formatString(string, shallow, expanded, name) {
   if (shallow === false) {
     // String has fewer escapes displayed with double quotes
-    if (count(string, /["\n]/g) <= count(string, /`|\${/g)) {
+    if (count(string, /["\n]/g) <= count(string, /`|\$\{/g)) {
       const span = document.createElement("span");
       if (name) span.appendChild(inspectName(name));
       const textValue = span.appendChild(document.createElement("span"));
@@ -43,8 +43,23 @@ export default function formatString(string, shallow, expanded, name) {
   if (name) span.appendChild(inspectName(name));
   const textValue = span.appendChild(document.createElement("span"));
   textValue.className = "observablehq--string";
-  textValue.textContent = JSON.stringify(string.length > 100 ?
-    `${string.slice(0, 50)}…${string.slice(-49)}` : string);
+  const encoded = JSON.stringify(string);
+  if (encoded.length <= 100) {
+    textValue.textContent = encoded;
+  } else {
+    textValue.appendChild(document.createTextNode(encoded.slice(0, 50)));
+
+    const truncated = document.createElement("span");
+    truncated.className = "observablehq--truncated";
+    truncated.textContent = encoded.slice(50, -49);
+    textValue.appendChild(truncated);
+
+    const ellipsis = document.createElement("span");
+    ellipsis.className = "observablehq--ellipsis";
+    textValue.appendChild(ellipsis);
+
+    textValue.appendChild(document.createTextNode(encoded.slice(-49)));
+  }
   return span;
 }
 
