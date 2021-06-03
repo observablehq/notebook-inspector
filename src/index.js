@@ -17,7 +17,7 @@ export class Inspector {
   }
   fulfilled(value, name) {
     const {_node} = this;
-    if (!(value instanceof Element || value instanceof Text) || (value.parentNode && value.parentNode !== _node)) {
+    if (!isnode(value) || (value.parentNode && value.parentNode !== _node)) {
       value = inspect(value, false, _node.firstChild // TODO Do this better.
           && _node.firstChild.classList
           && _node.firstChild.classList.contains("observablehq--expanded"), name);
@@ -57,3 +57,13 @@ Inspector.into = function(container) {
     return new Inspector(container.appendChild(document.createElement("div")));
   };
 };
+
+// Returns true if the given value is something that should be added to the DOM
+// by the inspector, rather than being inspected. This deliberately excludes
+// DocumentFragment since appending a fragment “dissolves” (mutates) the
+// fragment, and we wish for the inspector to not have side-effects. Also,
+// HTMLElement.prototype is an instanceof Element, but not an element!
+function isnode(value) {
+  return (value instanceof Element || value instanceof Text)
+      && (value instanceof value.constructor);
+}
